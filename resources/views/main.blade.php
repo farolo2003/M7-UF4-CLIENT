@@ -39,7 +39,7 @@
 <body>
     <div class="container">
         <h1>Bienvenido a mi web donde puedes realizar el sistema "CRUD" con proveedores y productos</h1><br><br><br>
-        <a href="" class="btn">Proveedores</a>
+        <a href="{{route('proveedores.index')}}" class="btn">Proveedores</a>
         <a href="{{route('productos.index')}}" class="btn">Productos</a>
     </div>
 </body>

@@ -20,16 +20,11 @@ class ProductosController extends Controller
         } else {
             return back()->with('error', 'Error al obtener los detalles del producto. Por favor, inténtelo de nuevo.');
         }
-
     }
 
     public function store(Request $request)
     {
-        // Obtener el token de sesión guardado
-
         $token = session('token');
-
-        // Validar los datos del formulario
         $data = $request->validate([
             "nombre" => "string|required",
             "descripcion" => "string|required",
@@ -47,10 +42,39 @@ class ProductosController extends Controller
             return back()->with('error', 'Error al crear el producto. Por favor, inténtelo de nuevo.');
         }
     }
+    public function update(Request $request, $id)
+    {
+        $token = session('token');
+        $data = $request->validate([
+            "nombre" => "string|required",
+            "descripcion" => "string|required",
+            "precio" => "numeric|required",
+            "stock" => "numeric|required",
+        ]);
 
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->put("http://localhost:8000/api/products/{$id}", $data);
 
+        if ($response->successful()) {
+            return redirect()->route('productos.index');
+        } else {
+            return back()->with('error', 'Error al actualizar el producto. Por favor, inténtelo de nuevo.');
+        }
+    }
 
+    public function destroy($id)
+    {
+        $token = session('token');
 
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->delete("http://localhost:8000/api/products/{$id}");
 
-
+        if ($response->successful()) {
+            return redirect()->route('productos.index');
+        } else {
+            return back()->with('error', 'Error al eliminar el producto. Por favor, inténtelo de nuevo.');
+        }
+    }
 }
