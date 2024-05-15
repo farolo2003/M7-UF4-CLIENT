@@ -12,7 +12,7 @@ class ProveedoresController extends Controller
         $token = session('token');
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:8000/api/proveedores');
+        ])->get(env('RUTA').'/proveedores');
 
         if ($response->successful()) {
             $proveedores = $response->json(); 
@@ -36,7 +36,7 @@ class ProveedoresController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post('http://localhost:8000/api/proveedores', $data);
+        ])->post(env('RUTA').'/proveedores', $data);
 
         if ($response->successful()) {
             return redirect()->route('proveedores.index');
@@ -58,7 +58,7 @@ class ProveedoresController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put("http://localhost:8000/api/proveedores/{$id}", $data);
+        ])->put(env('RUTA')."/proveedores/{$id}", $data);
 
         if ($response->successful()) {
             return redirect()->route('proveedores.index');
@@ -73,7 +73,7 @@ class ProveedoresController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->delete("http://localhost:8000/api/proveedores/{$id}");
+        ])->delete(env('RUTA')."/proveedores/{$id}");
 
         if ($response->successful()) {
             return redirect()->route('proveedores.index');

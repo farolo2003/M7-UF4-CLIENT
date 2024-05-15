@@ -12,7 +12,7 @@ class ProductosController extends Controller
         $token = session('token');
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('http://localhost:8000/api/products');
+        ])->get(env('RUTA').'/products');
 
         if ($response->successful()) {
             $productos = $response->json(); 
@@ -34,7 +34,7 @@ class ProductosController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->post('http://localhost:8000/api/products', $data);
+        ])->post(env('RUTA').'/products', $data);
 
         if ($response->successful()) {
             return redirect()->route('productos.index');
@@ -54,7 +54,7 @@ class ProductosController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->put("http://localhost:8000/api/products/{$id}", $data);
+        ])->put(env('RUTA')."/products/{$id}", $data);
 
         if ($response->successful()) {
             return redirect()->route('productos.index');
@@ -69,7 +69,7 @@ class ProductosController extends Controller
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->delete("http://localhost:8000/api/products/{$id}");
+        ])->delete(env('RUTA')."/products/{$id}");
 
         if ($response->successful()) {
             return redirect()->route('productos.index');
