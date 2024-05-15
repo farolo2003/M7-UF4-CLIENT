@@ -18,7 +18,7 @@ class RegisterController extends Controller
             "email" => "string|required",
             "password" => "string|required"
         ]);
-        $response = Http::post('http://localhost:8000/api/register', $data);
+        $response = Http::post(env('RUTA').'/register', $data);
         return Redirect::route('login.index');
     }
 }

@@ -18,7 +18,7 @@ class LoginController extends Controller
             "email" => "string|required",
             "password" => "string|required"
         ]);
-        $response = Http::post('http://localhost:8000/api/login', $data);
+        $response = Http::post(env('RUTA').'/login', $data);
 
         $responseData = $response->json();
 
